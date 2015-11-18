@@ -4,14 +4,15 @@
 cronJob = require('cron').CronJob
 
 module.exports = (robot) ->
-  cronJob = new cronJob('0 45 16 * * 1-5', () ->
+  cronJob = new cronJob('0 30 17 * * 1-5', () ->
 
     currentTime = new Date
 
-    say = """
-      #{currentTime.getHours()}時#{currentTime.getMinutes()}分だよ〜。今日もお疲れさま〜
-      日報書いてはよ帰ろっか〜
-    """ # + random [
+    envelope = room: "#general"
+
+    say = "
+      #{currentTime.getHours()}時#{currentTime.getMinutes()}分だよ〜。" +
+      "今日もお疲れさま〜 日報書いてはよ帰ろっか〜" # + random [
         #    'ところで日報は書いた?'
         #    '日報は帰ってからとかダメ(乂´∀｀)だよ?'
         #    '今日は何をしたんですか？日報でコッソリ教えて?(ﾋｿﾋｿ'
@@ -19,6 +20,6 @@ module.exports = (robot) ->
         #    '日報書いて家でゆっくりしましょ'
         #  ]
 
-    robot.send {'room: #general'}, say
+    robot.send envelope, say
   )
   cronJob.start()
